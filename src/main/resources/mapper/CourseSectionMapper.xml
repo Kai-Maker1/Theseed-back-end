@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.seed.dao.CourseSectionMapper" >
+  <resultMap id="BaseResultMap" type="com.seed.model.CourseSection" >
+    <constructor >
+      <arg column="course_section_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="course_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="parent_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="section_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="sort" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="time" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="onsale" jdbcType="BIT" javaType="java.lang.Boolean" />
+      <arg column="video_url" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="ppt_url" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="homework_url" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="test_url" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="discussion_url" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="endtime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="update_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="del" jdbcType="BIT" javaType="java.lang.Boolean" />
+    </constructor>
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    course_section_id, course_id, parent_id, section_name, sort, time, onsale, video_url, 
+    ppt_url, homework_url, test_url, discussion_url, endtime, create_time, update_time, 
+    del
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.seed.model.CourseSectionExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_course_section
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.seed.model.CourseSectionExample" >
+    delete from t_course_section
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.seed.model.CourseSection" >
+    insert into t_course_section (course_section_id, course_id, parent_id, 
+      section_name, sort, time, 
+      onsale, video_url, ppt_url, 
+      homework_url, test_url, discussion_url, 
+      endtime, create_time, update_time, 
+      del)
+    values (#{courseSectionId,jdbcType=INTEGER}, #{courseId,jdbcType=VARCHAR}, #{parentId,jdbcType=INTEGER}, 
+      #{sectionName,jdbcType=VARCHAR}, #{sort,jdbcType=INTEGER}, #{time,jdbcType=VARCHAR}, 
+      #{onsale,jdbcType=BIT}, #{videoUrl,jdbcType=VARCHAR}, #{pptUrl,jdbcType=VARCHAR}, 
+      #{homeworkUrl,jdbcType=VARCHAR}, #{testUrl,jdbcType=VARCHAR}, #{discussionUrl,jdbcType=VARCHAR}, 
+      #{endtime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{del,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.seed.model.CourseSection" >
+    insert into t_course_section
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="courseSectionId != null" >
+        course_section_id,
+      </if>
+      <if test="courseId != null" >
+        course_id,
+      </if>
+      <if test="parentId != null" >
+        parent_id,
+      </if>
+      <if test="sectionName != null" >
+        section_name,
+      </if>
+      <if test="sort != null" >
+        sort,
+      </if>
+      <if test="time != null" >
+        time,
+      </if>
+      <if test="onsale != null" >
+        onsale,
+      </if>
+      <if test="videoUrl != null" >
+        video_url,
+      </if>
+      <if test="pptUrl != null" >
+        ppt_url,
+      </if>
+      <if test="homeworkUrl != null" >
+        homework_url,
+      </if>
+      <if test="testUrl != null" >
+        test_url,
+      </if>
+      <if test="discussionUrl != null" >
+        discussion_url,
+      </if>
+      <if test="endtime != null" >
+        endtime,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="del != null" >
+        del,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="courseSectionId != null" >
+        #{courseSectionId,jdbcType=INTEGER},
+      </if>
+      <if test="courseId != null" >
+        #{courseId,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null" >
+        #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="sectionName != null" >
+        #{sectionName,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null" >
+        #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=VARCHAR},
+      </if>
+      <if test="onsale != null" >
+        #{onsale,jdbcType=BIT},
+      </if>
+      <if test="videoUrl != null" >
+        #{videoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="pptUrl != null" >
+        #{pptUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="homeworkUrl != null" >
+        #{homeworkUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="testUrl != null" >
+        #{testUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="discussionUrl != null" >
+        #{discussionUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="endtime != null" >
+        #{endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="del != null" >
+        #{del,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.seed.model.CourseSectionExample" resultType="java.lang.Integer" >
+    select count(*) from t_course_section
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_course_section
+    <set >
+      <if test="record.courseSectionId != null" >
+        course_section_id = #{record.courseSectionId,jdbcType=INTEGER},
+      </if>
+      <if test="record.courseId != null" >
+        course_id = #{record.courseId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parentId != null" >
+        parent_id = #{record.parentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.sectionName != null" >
+        section_name = #{record.sectionName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sort != null" >
+        sort = #{record.sort,jdbcType=INTEGER},
+      </if>
+      <if test="record.time != null" >
+        time = #{record.time,jdbcType=VARCHAR},
+      </if>
+      <if test="record.onsale != null" >
+        onsale = #{record.onsale,jdbcType=BIT},
+      </if>
+      <if test="record.videoUrl != null" >
+        video_url = #{record.videoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pptUrl != null" >
+        ppt_url = #{record.pptUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.homeworkUrl != null" >
+        homework_url = #{record.homeworkUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.testUrl != null" >
+        test_url = #{record.testUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.discussionUrl != null" >
+        discussion_url = #{record.discussionUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.endtime != null" >
+        endtime = #{record.endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.del != null" >
+        del = #{record.del,jdbcType=BIT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_course_section
+    set course_section_id = #{record.courseSectionId,jdbcType=INTEGER},
+      course_id = #{record.courseId,jdbcType=VARCHAR},
+      parent_id = #{record.parentId,jdbcType=INTEGER},
+      section_name = #{record.sectionName,jdbcType=VARCHAR},
+      sort = #{record.sort,jdbcType=INTEGER},
+      time = #{record.time,jdbcType=VARCHAR},
+      onsale = #{record.onsale,jdbcType=BIT},
+      video_url = #{record.videoUrl,jdbcType=VARCHAR},
+      ppt_url = #{record.pptUrl,jdbcType=VARCHAR},
+      homework_url = #{record.homeworkUrl,jdbcType=VARCHAR},
+      test_url = #{record.testUrl,jdbcType=VARCHAR},
+      discussion_url = #{record.discussionUrl,jdbcType=VARCHAR},
+      endtime = #{record.endtime,jdbcType=TIMESTAMP},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      del = #{record.del,jdbcType=BIT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

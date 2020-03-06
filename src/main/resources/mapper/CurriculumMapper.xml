@@ -1,0 +1,464 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.seed.dao.CurriculumMapper" >
+  <resultMap id="BaseResultMap" type="com.seed.model.Curriculum" >
+    <constructor >
+      <arg column="course_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="course_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="classify_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="classify_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="sub_classify_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="sub_classify_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="teacher_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="teacher_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="level" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="free" jdbcType="BIT" javaType="java.lang.Boolean" />
+      <arg column="price" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+      <arg column="begintime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="endtime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="status" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="icon" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="picture" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="recommend" jdbcType="BIT" javaType="java.lang.Boolean" />
+      <arg column="weight" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="study_count" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="update_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="del" jdbcType="BIT" javaType="java.lang.Boolean" />
+    </constructor>
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.seed.model.Curriculum" >
+    <constructor >
+      <arg column="course_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="course_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="classify_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="classify_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="sub_classify_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="sub_classify_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="teacher_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="teacher_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="level" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="free" jdbcType="BIT" javaType="java.lang.Boolean" />
+      <arg column="price" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+      <arg column="begintime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="endtime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="status" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="icon" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="picture" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="recommend" jdbcType="BIT" javaType="java.lang.Boolean" />
+      <arg column="weight" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="study_count" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="update_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="del" jdbcType="BIT" javaType="java.lang.Boolean" />
+      <arg column="brief" jdbcType="LONGVARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    course_id, course_name, classify_id, classify_name, sub_classify_id, sub_classify_name, 
+    teacher_id, teacher_name, level, free, price, begintime, endtime, status, icon, picture, 
+    recommend, weight, study_count, create_time, update_time, del
+  </sql>
+  <sql id="Blob_Column_List" >
+    brief
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.seed.model.CurriculumExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_curriculum
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.seed.model.CurriculumExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_curriculum
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.seed.model.CurriculumExample" >
+    delete from t_curriculum
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.seed.model.Curriculum" >
+    insert into t_curriculum (course_id, course_name, classify_id, 
+      classify_name, sub_classify_id, sub_classify_name, 
+      teacher_id, teacher_name, level, 
+      free, price, begintime, 
+      endtime, status, icon, 
+      picture, recommend, weight, 
+      study_count, create_time, update_time, 
+      del, brief)
+    values (#{courseId,jdbcType=VARCHAR}, #{courseName,jdbcType=VARCHAR}, #{classifyId,jdbcType=INTEGER}, 
+      #{classifyName,jdbcType=VARCHAR}, #{subClassifyId,jdbcType=INTEGER}, #{subClassifyName,jdbcType=VARCHAR}, 
+      #{teacherId,jdbcType=VARCHAR}, #{teacherName,jdbcType=VARCHAR}, #{level,jdbcType=VARCHAR}, 
+      #{free,jdbcType=BIT}, #{price,jdbcType=DECIMAL}, #{begintime,jdbcType=TIMESTAMP}, 
+      #{endtime,jdbcType=TIMESTAMP}, #{status,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR}, 
+      #{picture,jdbcType=VARCHAR}, #{recommend,jdbcType=BIT}, #{weight,jdbcType=INTEGER}, 
+      #{studyCount,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{del,jdbcType=BIT}, #{brief,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.seed.model.Curriculum" >
+    insert into t_curriculum
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="courseId != null" >
+        course_id,
+      </if>
+      <if test="courseName != null" >
+        course_name,
+      </if>
+      <if test="classifyId != null" >
+        classify_id,
+      </if>
+      <if test="classifyName != null" >
+        classify_name,
+      </if>
+      <if test="subClassifyId != null" >
+        sub_classify_id,
+      </if>
+      <if test="subClassifyName != null" >
+        sub_classify_name,
+      </if>
+      <if test="teacherId != null" >
+        teacher_id,
+      </if>
+      <if test="teacherName != null" >
+        teacher_name,
+      </if>
+      <if test="level != null" >
+        level,
+      </if>
+      <if test="free != null" >
+        free,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="begintime != null" >
+        begintime,
+      </if>
+      <if test="endtime != null" >
+        endtime,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="icon != null" >
+        icon,
+      </if>
+      <if test="picture != null" >
+        picture,
+      </if>
+      <if test="recommend != null" >
+        recommend,
+      </if>
+      <if test="weight != null" >
+        weight,
+      </if>
+      <if test="studyCount != null" >
+        study_count,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="del != null" >
+        del,
+      </if>
+      <if test="brief != null" >
+        brief,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="courseId != null" >
+        #{courseId,jdbcType=VARCHAR},
+      </if>
+      <if test="courseName != null" >
+        #{courseName,jdbcType=VARCHAR},
+      </if>
+      <if test="classifyId != null" >
+        #{classifyId,jdbcType=INTEGER},
+      </if>
+      <if test="classifyName != null" >
+        #{classifyName,jdbcType=VARCHAR},
+      </if>
+      <if test="subClassifyId != null" >
+        #{subClassifyId,jdbcType=INTEGER},
+      </if>
+      <if test="subClassifyName != null" >
+        #{subClassifyName,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherId != null" >
+        #{teacherId,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherName != null" >
+        #{teacherName,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null" >
+        #{level,jdbcType=VARCHAR},
+      </if>
+      <if test="free != null" >
+        #{free,jdbcType=BIT},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="begintime != null" >
+        #{begintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endtime != null" >
+        #{endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="icon != null" >
+        #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="picture != null" >
+        #{picture,jdbcType=VARCHAR},
+      </if>
+      <if test="recommend != null" >
+        #{recommend,jdbcType=BIT},
+      </if>
+      <if test="weight != null" >
+        #{weight,jdbcType=INTEGER},
+      </if>
+      <if test="studyCount != null" >
+        #{studyCount,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="del != null" >
+        #{del,jdbcType=BIT},
+      </if>
+      <if test="brief != null" >
+        #{brief,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.seed.model.CurriculumExample" resultType="java.lang.Integer" >
+    select count(*) from t_curriculum
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_curriculum
+    <set >
+      <if test="record.courseId != null" >
+        course_id = #{record.courseId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.courseName != null" >
+        course_name = #{record.courseName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.classifyId != null" >
+        classify_id = #{record.classifyId,jdbcType=INTEGER},
+      </if>
+      <if test="record.classifyName != null" >
+        classify_name = #{record.classifyName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subClassifyId != null" >
+        sub_classify_id = #{record.subClassifyId,jdbcType=INTEGER},
+      </if>
+      <if test="record.subClassifyName != null" >
+        sub_classify_name = #{record.subClassifyName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.teacherId != null" >
+        teacher_id = #{record.teacherId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.teacherName != null" >
+        teacher_name = #{record.teacherName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.level != null" >
+        level = #{record.level,jdbcType=VARCHAR},
+      </if>
+      <if test="record.free != null" >
+        free = #{record.free,jdbcType=BIT},
+      </if>
+      <if test="record.price != null" >
+        price = #{record.price,jdbcType=DECIMAL},
+      </if>
+      <if test="record.begintime != null" >
+        begintime = #{record.begintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.endtime != null" >
+        endtime = #{record.endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.icon != null" >
+        icon = #{record.icon,jdbcType=VARCHAR},
+      </if>
+      <if test="record.picture != null" >
+        picture = #{record.picture,jdbcType=VARCHAR},
+      </if>
+      <if test="record.recommend != null" >
+        recommend = #{record.recommend,jdbcType=BIT},
+      </if>
+      <if test="record.weight != null" >
+        weight = #{record.weight,jdbcType=INTEGER},
+      </if>
+      <if test="record.studyCount != null" >
+        study_count = #{record.studyCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.del != null" >
+        del = #{record.del,jdbcType=BIT},
+      </if>
+      <if test="record.brief != null" >
+        brief = #{record.brief,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update t_curriculum
+    set course_id = #{record.courseId,jdbcType=VARCHAR},
+      course_name = #{record.courseName,jdbcType=VARCHAR},
+      classify_id = #{record.classifyId,jdbcType=INTEGER},
+      classify_name = #{record.classifyName,jdbcType=VARCHAR},
+      sub_classify_id = #{record.subClassifyId,jdbcType=INTEGER},
+      sub_classify_name = #{record.subClassifyName,jdbcType=VARCHAR},
+      teacher_id = #{record.teacherId,jdbcType=VARCHAR},
+      teacher_name = #{record.teacherName,jdbcType=VARCHAR},
+      level = #{record.level,jdbcType=VARCHAR},
+      free = #{record.free,jdbcType=BIT},
+      price = #{record.price,jdbcType=DECIMAL},
+      begintime = #{record.begintime,jdbcType=TIMESTAMP},
+      endtime = #{record.endtime,jdbcType=TIMESTAMP},
+      status = #{record.status,jdbcType=VARCHAR},
+      icon = #{record.icon,jdbcType=VARCHAR},
+      picture = #{record.picture,jdbcType=VARCHAR},
+      recommend = #{record.recommend,jdbcType=BIT},
+      weight = #{record.weight,jdbcType=INTEGER},
+      study_count = #{record.studyCount,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      del = #{record.del,jdbcType=BIT},
+      brief = #{record.brief,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_curriculum
+    set course_id = #{record.courseId,jdbcType=VARCHAR},
+      course_name = #{record.courseName,jdbcType=VARCHAR},
+      classify_id = #{record.classifyId,jdbcType=INTEGER},
+      classify_name = #{record.classifyName,jdbcType=VARCHAR},
+      sub_classify_id = #{record.subClassifyId,jdbcType=INTEGER},
+      sub_classify_name = #{record.subClassifyName,jdbcType=VARCHAR},
+      teacher_id = #{record.teacherId,jdbcType=VARCHAR},
+      teacher_name = #{record.teacherName,jdbcType=VARCHAR},
+      level = #{record.level,jdbcType=VARCHAR},
+      free = #{record.free,jdbcType=BIT},
+      price = #{record.price,jdbcType=DECIMAL},
+      begintime = #{record.begintime,jdbcType=TIMESTAMP},
+      endtime = #{record.endtime,jdbcType=TIMESTAMP},
+      status = #{record.status,jdbcType=VARCHAR},
+      icon = #{record.icon,jdbcType=VARCHAR},
+      picture = #{record.picture,jdbcType=VARCHAR},
+      recommend = #{record.recommend,jdbcType=BIT},
+      weight = #{record.weight,jdbcType=INTEGER},
+      study_count = #{record.studyCount,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      del = #{record.del,jdbcType=BIT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

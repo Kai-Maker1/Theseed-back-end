@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seed.dao.BannerLogoMapper">
+    
+    <resultMap type="com.seed.model.BannerLogo" id="BannerLogoResult">
+        <result property="id"    column="Id"  />
+        <result property="name"    column="Name"    />
+        <result property="description"    column="Description"    />
+        <result property="type"    column="Type"    />
+        <result property="pic"    column="Pic"    />
+        <result property="text"    column="Text"    />
+        <result property="link"    column="Link"    />
+        <result property="htmlContent"    column="HtmlContent"    />
+        <result property="createTime"    column="CreateTime"    />
+        <result property="aDSort"    column="ADSort"    />
+        <result property="beginTime"    column="BeginTime"    />
+        <result property="endTime"    column="EndTime"    />
+        <result property="adPlaceId"    column="AdPlaceId"    />
+    </resultMap>
+	
+	<sql id="selectBannerLogoVo">
+        select Id, Name, Description, Type, Pic, Text, Link, HtmlContent, CreateTime, ADSort, BeginTime, EndTime, AdPlaceId from t_banner_logo
+    </sql>
+	
+    <select id="selectBannerLogoList" parameterType="BannerLogo" resultMap="BannerLogoResult">
+        <include refid="selectBannerLogoVo"/>
+        <where>
+            <if test="id != null  and id != '' "> and Id = #{id}</if>
+             <if test="name != null  and name != '' "> and Name = #{name}</if>
+             <if test="description != null  and description != '' "> and Description = #{description}</if>
+             <if test="type != null  and type != '' "> and Type = #{type}</if>
+             <if test="pic != null  and pic != '' "> and Pic = #{pic}</if>
+             <if test="text != null  and text != '' "> and Text = #{text}</if>
+             <if test="link != null  and link != '' "> and Link = #{link}</if>
+             <if test="htmlContent != null  and htmlContent != '' "> and HtmlContent = #{htmlContent}</if>
+             <if test="createTime != null "> and CreateTime = #{createTime}</if>
+             <if test="aDSort != null  and aDSort != '' "> and ADSort = #{aDSort}</if>
+             <if test="beginTime != null "> and BeginTime = #{beginTime}</if>
+             <if test="endTime != null "> and EndTime = #{endTime}</if>
+             <if test="adPlaceId != null "> and AdPlaceId = #{adPlaceId}</if>
+         </where>
+    </select>
+    
+    <select id="selectBannerLogoById" parameterType="String" resultMap="BannerLogoResult">
+        <include refid="selectBannerLogoVo"/>
+        where Id = #{id}
+    </select>
+        
+    <insert id="insertBannerLogo" parameterType="BannerLogo">
+        insert into t_banner_logo
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null  and id != ''  ">Id,</if>
+			<if test="name != null  and name != ''  ">Name,</if>
+			<if test="description != null  and description != ''  ">Description,</if>
+			<if test="type != null  and type != ''  ">Type,</if>
+			<if test="pic != null  and pic != ''  ">Pic,</if>
+			<if test="text != null  and text != ''  ">Text,</if>
+			<if test="link != null  and link != ''  ">Link,</if>
+			<if test="htmlContent != null  and htmlContent != ''  ">HtmlContent,</if>
+			<if test="createTime != null  ">CreateTime,</if>
+			<if test="aDSort != null  and aDSort != ''  ">ADSort,</if>
+			<if test="beginTime != null  ">BeginTime,</if>
+			<if test="endTime != null  ">EndTime,</if>
+			<if test="adPlaceId != null  ">AdPlaceId,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null  and id != ''  ">#{id},</if>
+			<if test="name != null  and name != ''  ">#{name},</if>
+			<if test="description != null  and description != ''  ">#{description},</if>
+			<if test="type != null  and type != ''  ">#{type},</if>
+			<if test="pic != null  and pic != ''  ">#{pic},</if>
+			<if test="text != null  and text != ''  ">#{text},</if>
+			<if test="link != null  and link != ''  ">#{link},</if>
+			<if test="htmlContent != null  and htmlContent != ''  ">#{htmlContent},</if>
+			<if test="createTime != null  ">#{createTime},</if>
+			<if test="aDSort != null  and aDSort != ''  ">#{aDSort},</if>
+			<if test="beginTime != null  ">#{beginTime},</if>
+			<if test="endTime != null  ">#{endTime},</if>
+			<if test="adPlaceId != null  ">#{adPlaceId},</if>
+         </trim>
+    </insert>
+	 
+    <update id="updateBannerLogo" parameterType="BannerLogo">
+        update t_banner_logo
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null  and name != ''  ">Name = #{name},</if>
+            <if test="description != null  and description != ''  ">Description = #{description},</if>
+            <if test="type != null  and type != ''  ">Type = #{type},</if>
+            <if test="pic != null  and pic != ''  ">Pic = #{pic},</if>
+            <if test="text != null  and text != ''  ">Text = #{text},</if>
+            <if test="link != null  and link != ''  ">Link = #{link},</if>
+            <if test="htmlContent != null  and htmlContent != ''  ">HtmlContent = #{htmlContent},</if>
+            <if test="createTime != null  ">CreateTime = #{createTime},</if>
+            <if test="aDSort != null  and aDSort != ''  ">ADSort = #{aDSort},</if>
+            <if test="beginTime != null  ">BeginTime = #{beginTime},</if>
+            <if test="endTime != null  ">EndTime = #{endTime},</if>
+            <if test="adPlaceId != null  ">AdPlaceId = #{adPlaceId},</if>
+        </trim>
+        where Id = #{id}
+    </update>
+
+	<delete id="deleteBannerLogoById" parameterType="String">
+        delete from t_banner_logo where Id = #{id}
+    </delete>
+	
+    <delete id="deleteBannerLogoByIds" parameterType="String">
+        delete from t_banner_logo where Id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>

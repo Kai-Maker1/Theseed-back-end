@@ -1,0 +1,95 @@
+server:
+  port: 4333
+  servlet:
+    context-path: /
+spring:
+  #json序列化时,属性为NULL 不序列化
+  jackson:
+    default-property-inclusion: non_null
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://47.94.134.210:3306/school?useUnicode=true&characterEncoding=utf-8&&serverTimezone=GMT%2B8&useSSL=false
+    #  url: jdbc:mysql://58.87.77.203:3306/school2?useUnicode=true&characterEncoding=utf-8&&serverTimezone=GMT%2B8&useSSL=false
+    username: root
+    password: root
+    platform: mysql
+      # 下面为连接池的补充设置，应用到上面所有数据源中
+    # 初始化大小，最小，最大
+    initialSize: 10
+    minIdle: 8
+    maxActive: 20
+    # 配置获取连接等待超时的时间
+    maxWait: 60000
+    # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+    timeBetweenEvictionRunsMillis: 60000
+    # 配置一个连接在池中最小生存的时间，单位是毫秒
+    minEvictableIdleTimeMillis: 30000
+    validationQuery: select 'x'
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    # 打开PSCache，并且指定每个连接上PSCache的大小
+    poolPreparedStatements: true
+    maxPoolPreparedStatementPerConnectionSize: 20
+    # 配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
+    filters: stat,wall,slf4j
+    # 通过connectProperties属性来打开mergeSql功能；慢SQL记录
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+  cache:
+    type: redis
+  #整合redis单机版,使用redis作为缓存
+  redis:
+    host: localhost
+    #password:
+    database: 0
+    port: 6379
+    # 连接超时时间（毫秒）
+    timeout: 2000
+    jedis:
+      pool:
+        # 连接池最大连接数（使用负值表示没有限制）
+        max-active: 100
+        #最大空闲数
+        max-idle: 5
+        # 连接池最大阻塞等待时间（使用负值表示没有限制）
+        max-wait: 3000
+        #最小空闲数
+        min-idle: 0
+  thymeleaf:
+  mvc:
+    static-path-pattern=/**:
+  resources:
+    static-locations: classpath:/static
+#加载Mybatis配置文件
+mybatis:
+  mapper-locations: classpath:mapper/*Mapper.xml
+  config-location: classpath:mapper/config/sqlMapConfig.xml
+  #定义别名
+  type-aliases-package: com.seed.entity
+
+  #开发过程建议关闭缓存
+  cache: false
+# 分页配置
+pagehelper:
+  helper-dialect: mysql
+  #超过最大页数后还会返回数据:reasonable: true
+  reasonable: false
+  support-methods-arguments: true
+  params: count=countSql
+#整合日志Log4j2,要扫描的包记录日志信息
+logging:
+  config:
+    classpath: log4j2.xml
+    # 定义记录某个包内日志的级别，高于等于则记录，可以多个
+  level:
+    org.springframework: FATAL
+  file: TestLog
+  path: D:/seedlog/
+management:
+  health:
+    db:
+      enabled: true
+    mail:
+      enabled: true

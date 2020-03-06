@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.seed.dao.CourseCommentMapper" >
+  <resultMap id="BaseResultMap" type="com.seed.model.CourseComment" >
+    <constructor >
+      <arg column="comment_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="user_nickname" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="commented_nickname" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="course_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="comment_title" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="content" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="like_num" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="read_num" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="ref_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="ref_content" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="answerStatus" jdbcType="BIT" javaType="java.lang.Boolean" />
+      <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="update_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="del" jdbcType="BIT" javaType="java.lang.Boolean" />
+    </constructor>
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    comment_id, user_nickname, commented_nickname, course_id, comment_title, content, 
+    like_num, read_num, ref_id, ref_content, answerStatus, create_time, update_time, 
+    del
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.seed.model.CourseCommentExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_course_comment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.seed.model.CourseCommentExample" >
+    delete from t_course_comment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.seed.model.CourseComment" >
+    insert into t_course_comment (comment_id, user_nickname, commented_nickname, 
+      course_id, comment_title, content, 
+      like_num, read_num, ref_id, 
+      ref_content, answerStatus, create_time, 
+      update_time, del)
+    values (#{commentId,jdbcType=VARCHAR}, #{userNickname,jdbcType=VARCHAR}, #{commentedNickname,jdbcType=VARCHAR}, 
+      #{courseId,jdbcType=VARCHAR}, #{commentTitle,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
+      #{likeNum,jdbcType=INTEGER}, #{readNum,jdbcType=INTEGER}, #{refId,jdbcType=VARCHAR}, 
+      #{refContent,jdbcType=VARCHAR}, #{answerstatus,jdbcType=BIT}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{del,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.seed.model.CourseComment" >
+    insert into t_course_comment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="commentId != null" >
+        comment_id,
+      </if>
+      <if test="userNickname != null" >
+        user_nickname,
+      </if>
+      <if test="commentedNickname != null" >
+        commented_nickname,
+      </if>
+      <if test="courseId != null" >
+        course_id,
+      </if>
+      <if test="commentTitle != null" >
+        comment_title,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="likeNum != null" >
+        like_num,
+      </if>
+      <if test="readNum != null" >
+        read_num,
+      </if>
+      <if test="refId != null" >
+        ref_id,
+      </if>
+      <if test="refContent != null" >
+        ref_content,
+      </if>
+      <if test="answerstatus != null" >
+        answerStatus,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="del != null" >
+        del,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="commentId != null" >
+        #{commentId,jdbcType=VARCHAR},
+      </if>
+      <if test="userNickname != null" >
+        #{userNickname,jdbcType=VARCHAR},
+      </if>
+      <if test="commentedNickname != null" >
+        #{commentedNickname,jdbcType=VARCHAR},
+      </if>
+      <if test="courseId != null" >
+        #{courseId,jdbcType=VARCHAR},
+      </if>
+      <if test="commentTitle != null" >
+        #{commentTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="likeNum != null" >
+        #{likeNum,jdbcType=INTEGER},
+      </if>
+      <if test="readNum != null" >
+        #{readNum,jdbcType=INTEGER},
+      </if>
+      <if test="refId != null" >
+        #{refId,jdbcType=VARCHAR},
+      </if>
+      <if test="refContent != null" >
+        #{refContent,jdbcType=VARCHAR},
+      </if>
+      <if test="answerstatus != null" >
+        #{answerstatus,jdbcType=BIT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="del != null" >
+        #{del,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.seed.model.CourseCommentExample" resultType="java.lang.Integer" >
+    select count(*) from t_course_comment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_course_comment
+    <set >
+      <if test="record.commentId != null" >
+        comment_id = #{record.commentId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userNickname != null" >
+        user_nickname = #{record.userNickname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.commentedNickname != null" >
+        commented_nickname = #{record.commentedNickname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.courseId != null" >
+        course_id = #{record.courseId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.commentTitle != null" >
+        comment_title = #{record.commentTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.content != null" >
+        content = #{record.content,jdbcType=VARCHAR},
+      </if>
+      <if test="record.likeNum != null" >
+        like_num = #{record.likeNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.readNum != null" >
+        read_num = #{record.readNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.refId != null" >
+        ref_id = #{record.refId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.refContent != null" >
+        ref_content = #{record.refContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.answerstatus != null" >
+        answerStatus = #{record.answerstatus,jdbcType=BIT},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.del != null" >
+        del = #{record.del,jdbcType=BIT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_course_comment
+    set comment_id = #{record.commentId,jdbcType=VARCHAR},
+      user_nickname = #{record.userNickname,jdbcType=VARCHAR},
+      commented_nickname = #{record.commentedNickname,jdbcType=VARCHAR},
+      course_id = #{record.courseId,jdbcType=VARCHAR},
+      comment_title = #{record.commentTitle,jdbcType=VARCHAR},
+      content = #{record.content,jdbcType=VARCHAR},
+      like_num = #{record.likeNum,jdbcType=INTEGER},
+      read_num = #{record.readNum,jdbcType=INTEGER},
+      ref_id = #{record.refId,jdbcType=VARCHAR},
+      ref_content = #{record.refContent,jdbcType=VARCHAR},
+      answerStatus = #{record.answerstatus,jdbcType=BIT},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      del = #{record.del,jdbcType=BIT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

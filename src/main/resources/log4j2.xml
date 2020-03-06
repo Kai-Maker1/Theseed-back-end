@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+日志级别
+trace： 是追踪，就是程序推进以下，你就可以写个trace输出，所以trace应该会特别多，不过没关系，我们可以设置最低日志级别不让他输出。
+debug： 调试么，我一般就只用这个作为最低级别，trace压根不用。是在没办法就用eclipse或者idea的debug功能就好了么。
+info： 输出一下你感兴趣的或者重要的信息，这个用的最多了。
+warn： 有些信息不是错误信息，但是也要给程序员的一些提示，类似于eclipse中代码的验证不是有error 和warn（不算错误但是也请注意，比如以下depressed的方法）。
+error： 错误信息。用的也比较多。
+fatal： 级别比较高了。重大错误，这种级别你可以直接停止程序了，是不应该出现的错误么！不用那么紧张，其实就是一个程度的问题。
+ -->
+<Configuration status="OFF">
+    <!-- 定义日志存放目录 -->
+    <properties>
+        <property name="logPath">logs</property>
+        <!-- 输出日志的格式 -->
+        <!--
+                %d{yyyy-MM-dd HH:mm:ss, SSS} : 日志生产时间
+                %p : 日志输出格式
+                %c : logger的名称
+                %m : 日志内容，即 logger.info("message")
+                %n : 换行符
+                %C : Java类名
+                %L : 日志输出所在行数
+                %M : 日志输出所在方法名
+                hostName : 本地机器名
+                hostAddress : 本地ip地址 -->
+        <property name="PATTERN">%d{yyyy-MM-dd HH:mm:ss.SSS} [%t-%L] %-5level %logger{36} %L %M - %msg%xEx%n</property>
+    </properties>
+    <!--先定义所有的appender(输出器) -->
+    <Appenders>
+        <!--输出到控制台 -->
+        <Console name="ConsoleLog" target="SYSTEM_OUT">
+            <!--只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch） -->
+            <ThresholdFilter level="trace" onMatch="ACCEPT" onMismatch="DENY" />
+            <!--输出日志的格式，引用自定义模板 PATTERN -->
+            <PatternLayout pattern="${PATTERN}" />
+        </Console>
+        <!--输出到文件 -->
+        <!--文件会打印出所有信息，这个log每次运行程序会自动清空，由append属性决定，这个也挺有用的，适合临时测试用 -->
+        <!--append为TRUE表示消息增加到指定文件中，false表示消息覆盖指定的文件内容，默认值是true -->
+        <File name="TestLog" fileName="${logPath}/test.log" append="false">
+            <PatternLayout pattern="${PATTERN}" />
+        </File>
+        <!-- 把error等级记录到文件 一般不用 -->
+        <File name="FileLog" fileName="${logPath}/error.log">
+            <ThresholdFilter level="error" onMatch="ACCEPT" onMismatch="DENY" />
+            <!--过滤器 有三种匹配状态：ACCEPT接受  DENY禁止  NEUTRAL中立（忽略该规则） -->
+            <PatternLayout pattern="${PATTERN}" />
+        </File>
+        <!--输出到循环日志，每次大小超过size，则这size大小的日志会自动存入按年份-月份建立的文件夹下面并进行压缩，作为存档 -->
+        <RollingFile name="RollingFileLog" fileName="${logPath}/app.log" filePattern="${logPath}/$${date:yyyy-MM}/app-%d{MM-dd-yyyy}-%i.log.gz">
+            <ThresholdFilter level="error" onMatch="ACCEPT" onMismatch="DENY" />
+            <PatternLayout pattern="${PATTERN}" />
+            <SizeBasedTriggeringPolicy size="10MB" />
+        </RollingFile>
+    </Appenders>
+    <!--然后定义logger，只有定义了logger并引入的appender，appender才会生效 -->
+    <!--然后定义logger，只有定义了logger并引入的appender，appender才会生效 -->
+    <Loggers>
+        <!--建立一个默认的Root的logger，记录大于level高于warn的信息，如果这里的level高于Appenders中的，则Appenders中也是以此等级为起点，比如，这里level="fatal"，则Appenders中只出现fatal信息 -->
+        <!-- 生产环境level>=warn -->
+        <Root level="debug">
+            <!-- 输出器,可选上面定义的任何项组合，或全选，做到可随意定制 -->
+            <appender-ref ref="ConsoleLog" />
+            <appender-ref ref="TestLog" />
+            <appender-ref ref="FileLog" />
+            <appender-ref ref="RollingFileLog" />
+        </Root>
+        <!-- 第三方日志系统 -->
+        <!--过滤掉spring和mybatis的一些无用的DEBUG信息，也可以在spring boot 的logging.level.org.springframework=FATAL设置-->
+        <!-- <logger name="org.springframework" level="INFO"></logger> -->
+        <!-- <logger name="org.mybatis" level="INFO"></logger> -->
+        <!-- <logger name="org.apache.http" level="warn" /> -->
+    </Loggers>
+</Configuration>
