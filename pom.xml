@@ -79,7 +79,7 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
-            <version>1.2.46</version>
+            <version>1.2.83</version>
         </dependency>
         <!--Swagger,中文"拽"的意思.它是一个功能强大的在线API文档的框架-->
         <dependency>
